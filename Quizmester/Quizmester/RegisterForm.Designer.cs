@@ -34,6 +34,7 @@
             this.txbNewPassword = new System.Windows.Forms.TextBox();
             this.txbNewUsername = new System.Windows.Forms.TextBox();
             this.btnRegister = new System.Windows.Forms.Button();
+            this.btnGoToLogin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label3
@@ -87,11 +88,22 @@
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
+            // btnGoToLogin
+            // 
+            this.btnGoToLogin.Location = new System.Drawing.Point(388, 282);
+            this.btnGoToLogin.Name = "btnGoToLogin";
+            this.btnGoToLogin.Size = new System.Drawing.Size(82, 74);
+            this.btnGoToLogin.TabIndex = 13;
+            this.btnGoToLogin.Text = "already have an account";
+            this.btnGoToLogin.UseVisualStyleBackColor = true;
+            this.btnGoToLogin.Click += new System.EventHandler(this.btnGoToLogin_Click);
+            // 
             // RegisterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnGoToLogin);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -113,5 +125,6 @@
         private System.Windows.Forms.TextBox txbNewPassword;
         private System.Windows.Forms.TextBox txbNewUsername;
         private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.Button btnGoToLogin;
     }
 }

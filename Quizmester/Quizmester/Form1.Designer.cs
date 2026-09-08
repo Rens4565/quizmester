@@ -83,10 +83,11 @@
             // 
             this.btnLogin.Location = new System.Drawing.Point(338, 207);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(75, 27);
+            this.btnLogin.Size = new System.Drawing.Size(75, 26);
             this.btnLogin.TabIndex = 5;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // fileSystemWatcher1
             // 

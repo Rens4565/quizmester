@@ -33,53 +33,30 @@ namespace Quizmester
         public bool RegisterUser(string username, string password)
         {
             string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=Quizmester;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
-
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
-                // Step 1: Check if the username already exists
                 string checkQuery = "SELECT COUNT(*) FROM Users WHERE Username = @username";
                 SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
                 checkCmd.Parameters.AddWithValue("@username", username);
-
                 int existingCount = (int)checkCmd.ExecuteScalar();
-
                 if (existingCount > 0)
                 {
                     MessageBox.Show("username already taken try again with a different username");
                     return false;
                 }
 
-                // Step 2: Hash the password before storing it
-                byte[] hashedPassword = CalculateSHA256(password);
-
-                // Step 3: Insert the new user (no UserId — IDENTITY handles that now)
                 string insertQuery = "INSERT INTO Users (Username, Password) VALUES (@username, @password)";
                 SqlCommand insertCmd = new SqlCommand(insertQuery, conn);
-
                 insertCmd.Parameters.AddWithValue("@username", username);
-                insertCmd.Parameters.AddWithValue("@password", hashedPassword);
-
+                insertCmd.Parameters.AddWithValue("@password", password);
                 int rowsAffected = insertCmd.ExecuteNonQuery();
                 return rowsAffected > 0;
-               
-
-
             }
-
-            
         }
 
-        private byte[] CalculateSHA256(string password)
-        {
-            SHA256 sha256 = SHA256Managed.Create();
-            byte[] hashValue;
-            UTF8Encoding objUtf8 = new UTF8Encoding();
-            hashValue = sha256.ComputeHash(objUtf8.GetBytes(password));
-
-            return hashValue;
-        }
+       
        
         private void GotoQuiz()
         {
@@ -102,6 +79,16 @@ namespace Quizmester
                 IsUserRegistered =true;
                 GotoQuiz();
             }
+        }
+
+        private void btnGoToLogin_Click(object sender, EventArgs e)
+        {
+            Form1 Form1 = new Form1();
+
+           
+            Form1.Show();
+            this.Hide();
+
         }
     }
 }
