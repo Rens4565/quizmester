@@ -28,38 +28,122 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnTestForm = new System.Windows.Forms.Button();
+            this.lblQuestion = new System.Windows.Forms.Label();
+            this.btnAnswer1 = new System.Windows.Forms.Button();
+            this.btnAnswer2 = new System.Windows.Forms.Button();
+            this.btnAnswer3 = new System.Windows.Forms.Button();
+            this.btnAnswer4 = new System.Windows.Forms.Button();
+            this.btnGeneral = new System.Windows.Forms.Button();
+            this.btnHistory = new System.Windows.Forms.Button();
+            this.btnScience = new System.Windows.Forms.Button();
+            this.lblScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // lblQuestion
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(388, 189);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "test";
+            this.lblQuestion.AutoSize = true;
+            this.lblQuestion.Location = new System.Drawing.Point(240, 93);
+            this.lblQuestion.Name = "lblQuestion";
+            this.lblQuestion.Size = new System.Drawing.Size(36, 20);
+            this.lblQuestion.TabIndex = 0;
+            this.lblQuestion.Text = "test";
             // 
-            // btnTestForm
+            // btnAnswer1
             // 
-            this.btnTestForm.Location = new System.Drawing.Point(646, 61);
-            this.btnTestForm.Name = "btnTestForm";
-            this.btnTestForm.Size = new System.Drawing.Size(75, 23);
-            this.btnTestForm.TabIndex = 1;
-            this.btnTestForm.Text = "test";
-            this.btnTestForm.UseVisualStyleBackColor = true;
-            this.btnTestForm.Click += new System.EventHandler(this.btnTestForm_Click);
+            this.btnAnswer1.Location = new System.Drawing.Point(244, 199);
+            this.btnAnswer1.Name = "btnAnswer1";
+            this.btnAnswer1.Size = new System.Drawing.Size(167, 39);
+            this.btnAnswer1.TabIndex = 1;
+            this.btnAnswer1.Text = "button1";
+            this.btnAnswer1.UseVisualStyleBackColor = true;
+            this.btnAnswer1.Click += new System.EventHandler(this.btnAnswer1_Click);
+            // 
+            // btnAnswer2
+            // 
+            this.btnAnswer2.Location = new System.Drawing.Point(454, 199);
+            this.btnAnswer2.Name = "btnAnswer2";
+            this.btnAnswer2.Size = new System.Drawing.Size(164, 39);
+            this.btnAnswer2.TabIndex = 2;
+            this.btnAnswer2.Text = "button2";
+            this.btnAnswer2.UseVisualStyleBackColor = true;
+            this.btnAnswer2.Click += new System.EventHandler(this.btnAnswer2_Click);
+            // 
+            // btnAnswer3
+            // 
+            this.btnAnswer3.Location = new System.Drawing.Point(244, 294);
+            this.btnAnswer3.Name = "btnAnswer3";
+            this.btnAnswer3.Size = new System.Drawing.Size(167, 39);
+            this.btnAnswer3.TabIndex = 3;
+            this.btnAnswer3.Text = "button3";
+            this.btnAnswer3.UseVisualStyleBackColor = true;
+            this.btnAnswer3.Click += new System.EventHandler(this.btnAnswer3_Click);
+            // 
+            // btnAnswer4
+            // 
+            this.btnAnswer4.Location = new System.Drawing.Point(454, 294);
+            this.btnAnswer4.Name = "btnAnswer4";
+            this.btnAnswer4.Size = new System.Drawing.Size(164, 39);
+            this.btnAnswer4.TabIndex = 4;
+            this.btnAnswer4.Text = "button4";
+            this.btnAnswer4.UseVisualStyleBackColor = true;
+            this.btnAnswer4.Click += new System.EventHandler(this.btnAnswer4_Click);
+            // 
+            // btnGeneral
+            // 
+            this.btnGeneral.Location = new System.Drawing.Point(49, 71);
+            this.btnGeneral.Name = "btnGeneral";
+            this.btnGeneral.Size = new System.Drawing.Size(75, 42);
+            this.btnGeneral.TabIndex = 5;
+            this.btnGeneral.Text = "General";
+            this.btnGeneral.UseVisualStyleBackColor = true;
+            this.btnGeneral.Click += new System.EventHandler(this.btnGeneral_Click);
+            // 
+            // btnHistory
+            // 
+            this.btnHistory.Location = new System.Drawing.Point(49, 138);
+            this.btnHistory.Name = "btnHistory";
+            this.btnHistory.Size = new System.Drawing.Size(75, 42);
+            this.btnHistory.TabIndex = 6;
+            this.btnHistory.Text = "history";
+            this.btnHistory.UseVisualStyleBackColor = true;
+            this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
+            // 
+            // btnScience
+            // 
+            this.btnScience.Location = new System.Drawing.Point(49, 199);
+            this.btnScience.Name = "btnScience";
+            this.btnScience.Size = new System.Drawing.Size(75, 42);
+            this.btnScience.TabIndex = 7;
+            this.btnScience.Text = "Science";
+            this.btnScience.UseVisualStyleBackColor = true;
+            this.btnScience.Click += new System.EventHandler(this.btnScience_Click);
+            // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.Location = new System.Drawing.Point(628, 391);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(51, 20);
+            this.lblScore.TabIndex = 8;
+            this.lblScore.Text = "Score";
             // 
             // quizForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnTestForm);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblScore);
+            this.Controls.Add(this.btnScience);
+            this.Controls.Add(this.btnHistory);
+            this.Controls.Add(this.btnGeneral);
+            this.Controls.Add(this.btnAnswer4);
+            this.Controls.Add(this.btnAnswer3);
+            this.Controls.Add(this.btnAnswer2);
+            this.Controls.Add(this.btnAnswer1);
+            this.Controls.Add(this.lblQuestion);
             this.Name = "quizForm";
             this.Text = "quizForm";
+            this.Load += new System.EventHandler(this.quizForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -67,7 +151,14 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnTestForm;
+        private System.Windows.Forms.Label lblQuestion;
+        private System.Windows.Forms.Button btnAnswer1;
+        private System.Windows.Forms.Button btnAnswer2;
+        private System.Windows.Forms.Button btnAnswer3;
+        private System.Windows.Forms.Button btnAnswer4;
+        private System.Windows.Forms.Button btnGeneral;
+        private System.Windows.Forms.Button btnHistory;
+        private System.Windows.Forms.Button btnScience;
+        private System.Windows.Forms.Label lblScore;
     }
 }

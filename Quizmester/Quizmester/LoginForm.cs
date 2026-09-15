@@ -10,14 +10,14 @@ using System.Windows.Forms;
 namespace Quizmester
 {
    
-    public partial class Form1 : Form
+    public partial class LoginForm : Form
     {
         
         string username = "";
         string password = "";
 
         
-        public Form1()
+        public LoginForm()
         {
             
             InitializeComponent();

@@ -83,7 +83,7 @@ namespace Quizmester
 
         private void btnGoToLogin_Click(object sender, EventArgs e)
         {
-            Form1 Form1 = new Form1();
+            LoginForm Form1 = new LoginForm();
 
            
             Form1.Show();
