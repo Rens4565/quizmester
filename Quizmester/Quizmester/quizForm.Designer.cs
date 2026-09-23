@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblQuestion = new System.Windows.Forms.Label();
             this.btnAnswer1 = new System.Windows.Forms.Button();
             this.btnAnswer2 = new System.Windows.Forms.Button();
@@ -37,6 +38,10 @@
             this.btnHistory = new System.Windows.Forms.Button();
             this.btnScience = new System.Windows.Forms.Button();
             this.lblScore = new System.Windows.Forms.Label();
+            this.btnSkipQuestion = new System.Windows.Forms.Button();
+            this.QuizTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblQuizTime = new System.Windows.Forms.Label();
+            this.lblQuestionTime = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblQuestion
@@ -92,7 +97,7 @@
             // 
             this.btnGeneral.Location = new System.Drawing.Point(49, 71);
             this.btnGeneral.Name = "btnGeneral";
-            this.btnGeneral.Size = new System.Drawing.Size(75, 42);
+            this.btnGeneral.Size = new System.Drawing.Size(89, 42);
             this.btnGeneral.TabIndex = 5;
             this.btnGeneral.Text = "General";
             this.btnGeneral.UseVisualStyleBackColor = true;
@@ -102,7 +107,7 @@
             // 
             this.btnHistory.Location = new System.Drawing.Point(49, 138);
             this.btnHistory.Name = "btnHistory";
-            this.btnHistory.Size = new System.Drawing.Size(75, 42);
+            this.btnHistory.Size = new System.Drawing.Size(89, 42);
             this.btnHistory.TabIndex = 6;
             this.btnHistory.Text = "history";
             this.btnHistory.UseVisualStyleBackColor = true;
@@ -112,7 +117,7 @@
             // 
             this.btnScience.Location = new System.Drawing.Point(49, 199);
             this.btnScience.Name = "btnScience";
-            this.btnScience.Size = new System.Drawing.Size(75, 42);
+            this.btnScience.Size = new System.Drawing.Size(89, 42);
             this.btnScience.TabIndex = 7;
             this.btnScience.Text = "Science";
             this.btnScience.UseVisualStyleBackColor = true;
@@ -127,11 +132,47 @@
             this.lblScore.TabIndex = 8;
             this.lblScore.Text = "Score";
             // 
+            // btnSkipQuestion
+            // 
+            this.btnSkipQuestion.Location = new System.Drawing.Point(479, 402);
+            this.btnSkipQuestion.Name = "btnSkipQuestion";
+            this.btnSkipQuestion.Size = new System.Drawing.Size(75, 28);
+            this.btnSkipQuestion.TabIndex = 9;
+            this.btnSkipQuestion.Text = "skip question";
+            this.btnSkipQuestion.UseVisualStyleBackColor = true;
+            this.btnSkipQuestion.Click += new System.EventHandler(this.btnSkipQuestion_Click);
+            // 
+            // QuizTimer
+            // 
+            this.QuizTimer.Interval = 1000;
+            this.QuizTimer.Tick += new System.EventHandler(this.timerQuestion_Tick);
+            // 
+            // lblQuizTime
+            // 
+            this.lblQuizTime.AutoSize = true;
+            this.lblQuizTime.Location = new System.Drawing.Point(140, 390);
+            this.lblQuizTime.Name = "lblQuizTime";
+            this.lblQuizTime.Size = new System.Drawing.Size(108, 30);
+            this.lblQuizTime.TabIndex = 10;
+            this.lblQuizTime.Text = "quiz time";
+            // 
+            // lblQuestionTime
+            // 
+            this.lblQuestionTime.AutoSize = true;
+            this.lblQuestionTime.Location = new System.Drawing.Point(240, 391);
+            this.lblQuestionTime.Name = "lblQuestionTime";
+            this.lblQuestionTime.Size = new System.Drawing.Size(156, 30);
+            this.lblQuestionTime.TabIndex = 11;
+            this.lblQuestionTime.Text = "question time";
+            // 
             // quizForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblQuestionTime);
+            this.Controls.Add(this.lblQuizTime);
+            this.Controls.Add(this.btnSkipQuestion);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnScience);
             this.Controls.Add(this.btnHistory);
@@ -160,5 +201,9 @@
         private System.Windows.Forms.Button btnHistory;
         private System.Windows.Forms.Button btnScience;
         private System.Windows.Forms.Label lblScore;
+        private System.Windows.Forms.Button btnSkipQuestion;
+        private System.Windows.Forms.Timer QuizTimer;
+        private System.Windows.Forms.Label lblQuizTime;
+        private System.Windows.Forms.Label lblQuestionTime;
     }
 }

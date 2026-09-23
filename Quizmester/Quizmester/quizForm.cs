@@ -24,6 +24,11 @@ namespace Quizmester
         public int score = 0;
         private bool skipUsed = false;
 
+        private int questinTimeLimit = 6;
+        private int quizTimeLimit = 60;
+        private int questionTimeLeft;
+        private int quizTimeLeft;
+
         private void LoadQuiz(string category)
         {
             GetQuestionsDB repo = new GetQuestionsDB();
@@ -34,6 +39,11 @@ namespace Quizmester
             currentQuestionIndex = 0;
             score = 0;
             skipUsed = false;
+
+
+            quizTimeLeft = quizTimeLimit;
+            lblQuizTime.Text = "Time Left: " + quizTimeLeft;
+
             ShowQuestions();
         }
 
@@ -50,10 +60,44 @@ namespace Quizmester
 
             List<string> shuffledAnswers = ShuffleAnswers(currentQuestion);
             
-            btnAnswer1.Text =shuffledAnswers[0];
+            btnAnswer1.Text = shuffledAnswers[0];
             btnAnswer2.Text = shuffledAnswers[1];
             btnAnswer3.Text = shuffledAnswers[2];
             btnAnswer4.Text = shuffledAnswers[3];
+
+
+            questionTimeLeft = questinTimeLimit;
+            lblQuestionTime.Text = "Question time:" + questionTimeLeft;
+
+            QuizTimer.Start();
+
+
+        }
+        private void timerQuestion_Tick(object sender, EventArgs e)
+        {
+            // --- overall quiz clock ---
+            quizTimeLeft--;
+            lblQuizTime.Text = "Total time: " + quizTimeLeft;
+
+            if (quizTimeLeft <= 0)
+            {
+                QuizTimer.Stop();
+                EndQuiz();          // whole quiz is over, ignore the question clock
+                return;              // stop here, don't also touch the question clock below
+            }
+
+            // --- per-question clock ---
+            questionTimeLeft--;
+            lblQuestionTime.Text = "Time left: " + questionTimeLeft;
+
+
+            if (questionTimeLeft <= 0)
+            {
+                // question ran out, treat like wrong answer, move to next question
+                // note: we do NOT stop the timer here, the quiz clock keeps running
+                currentQuestionIndex++;
+                ShowQuestions();
+            }
         }
 
 
@@ -137,16 +181,34 @@ namespace Quizmester
             if (chosenAnswer == currentQuestion.CorrectAnswer)
             {
                 score++;
-                MessageBox.Show("correct");
-                lblScore.Text = Convert.ToString(score);
+                lblScore.Text = Convert.ToString("score:" + score);
             }
             else
             {
-                MessageBox.Show("Fout! het juiste antwoord was:" + currentQuestion.CorrectAnswer);
+                quizTimeLeft -= 5;
             }
 
-            currentQuestionIndex++;
+
+                currentQuestionIndex++;
             ShowQuestions();
+        }
+
+        private void SkipQuestion()
+        {
+            currentQuestionIndex++;
+            skipUsed = true;
+
+            ShowQuestions();
+
+        }
+
+        private void btnSkipQuestion_Click(object sender, EventArgs e)
+        {
+            if (skipUsed == false)
+            {
+                SkipQuestion();
+               
+            }
         }
         private void EndQuiz()
         {
@@ -167,5 +229,7 @@ namespace Quizmester
         {
             LoadQuiz("Science");
         }
+
+        
     }
 }
