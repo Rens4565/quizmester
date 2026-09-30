@@ -109,7 +109,7 @@ namespace Quizmester
 
         private void quizForm_Load(object sender, EventArgs e)
         {
-            
+          
         }
 
         
@@ -212,7 +212,20 @@ namespace Quizmester
         }
         private void EndQuiz()
         {
-         
+            QuizTimer.Stop();
+
+            score = 0;
+            currentQuestionIndex = 0;
+            skipUsed = false;
+
+            lblScore.Text = "score: 0";
+            lblQuestion.Text = "Kies een categorie";
+            lblQuestionTime.Text = "Question time: 0";
+            lblQuizTime.Text = "Total time: 0";
+
+            btnGeneral.Visible = true;
+            btnHistory.Visible = true;
+            btnScience.Visible = true;
         }
 
         private void btnGeneral_Click(object sender, EventArgs e)
