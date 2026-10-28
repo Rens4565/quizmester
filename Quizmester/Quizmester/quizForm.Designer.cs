@@ -152,7 +152,7 @@
             this.lblQuizTime.AutoSize = true;
             this.lblQuizTime.Location = new System.Drawing.Point(140, 390);
             this.lblQuizTime.Name = "lblQuizTime";
-            this.lblQuizTime.Size = new System.Drawing.Size(108, 30);
+            this.lblQuizTime.Size = new System.Drawing.Size(72, 20);
             this.lblQuizTime.TabIndex = 10;
             this.lblQuizTime.Text = "quiz time";
             // 
@@ -161,7 +161,7 @@
             this.lblQuestionTime.AutoSize = true;
             this.lblQuestionTime.Location = new System.Drawing.Point(240, 391);
             this.lblQuestionTime.Name = "lblQuestionTime";
-            this.lblQuestionTime.Size = new System.Drawing.Size(156, 30);
+            this.lblQuestionTime.Size = new System.Drawing.Size(104, 20);
             this.lblQuestionTime.TabIndex = 11;
             this.lblQuestionTime.Text = "question time";
             // 
@@ -183,7 +183,7 @@
             this.Controls.Add(this.btnAnswer1);
             this.Controls.Add(this.lblQuestion);
             this.Name = "quizForm";
-            this.Text = "quizForm";
+            this.Text = "+";
             this.Load += new System.EventHandler(this.quizForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
