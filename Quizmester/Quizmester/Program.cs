@@ -17,6 +17,9 @@ namespace Quizmester
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new RegisterForm());
+
         }
+        public static string CurrentUser = "";
+        public static bool IsAdmin = false;
     }
 }

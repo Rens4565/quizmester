@@ -40,7 +40,9 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(392, 173);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.label3.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.label3.Location = new System.Drawing.Point(335, 175);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 20);
             this.label3.TabIndex = 10;
@@ -49,7 +51,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(385, 123);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.label2.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.label2.Location = new System.Drawing.Point(335, 115);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 20);
             this.label2.TabIndex = 9;
@@ -58,7 +62,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(385, 68);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.label1.Location = new System.Drawing.Point(335, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 20);
             this.label1.TabIndex = 8;
@@ -66,23 +72,33 @@
             // 
             // txbNewPassword
             // 
-            this.txbNewPassword.Location = new System.Drawing.Point(389, 196);
+            this.txbNewPassword.Location = new System.Drawing.Point(335, 198);
+            this.txbNewPassword.BackColor = System.Drawing.Color.White;
+            this.txbNewPassword.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txbNewPassword.ForeColor = System.Drawing.Color.Black;
             this.txbNewPassword.Name = "txbNewPassword";
-            this.txbNewPassword.Size = new System.Drawing.Size(100, 26);
+            this.txbNewPassword.Size = new System.Drawing.Size(220, 26);
             this.txbNewPassword.TabIndex = 7;
             // 
             // txbNewUsername
             // 
-            this.txbNewUsername.Location = new System.Drawing.Point(389, 146);
+            this.txbNewUsername.Location = new System.Drawing.Point(335, 140);
+            this.txbNewUsername.BackColor = System.Drawing.Color.White;
+            this.txbNewUsername.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txbNewUsername.ForeColor = System.Drawing.Color.Black;
             this.txbNewUsername.Name = "txbNewUsername";
-            this.txbNewUsername.Size = new System.Drawing.Size(100, 26);
+            this.txbNewUsername.Size = new System.Drawing.Size(220, 26);
             this.txbNewUsername.TabIndex = 6;
             // 
             // btnRegister
             // 
-            this.btnRegister.Location = new System.Drawing.Point(389, 228);
+            this.btnRegister.Location = new System.Drawing.Point(335, 245);
+            this.btnRegister.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnRegister.ForeColor = System.Drawing.Color.White;
             this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(100, 37);
+            this.btnRegister.Size = new System.Drawing.Size(220, 40);
             this.btnRegister.TabIndex = 11;
             this.btnRegister.Text = "Register";
             this.btnRegister.UseVisualStyleBackColor = true;
@@ -90,9 +106,13 @@
             // 
             // btnGoToLogin
             // 
-            this.btnGoToLogin.Location = new System.Drawing.Point(388, 282);
+            this.btnGoToLogin.Location = new System.Drawing.Point(335, 300);
+            this.btnGoToLogin.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnGoToLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGoToLogin.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnGoToLogin.ForeColor = System.Drawing.Color.White;
             this.btnGoToLogin.Name = "btnGoToLogin";
-            this.btnGoToLogin.Size = new System.Drawing.Size(82, 74);
+            this.btnGoToLogin.Size = new System.Drawing.Size(220, 40);
             this.btnGoToLogin.TabIndex = 13;
             this.btnGoToLogin.Text = "already have an account";
             this.btnGoToLogin.UseVisualStyleBackColor = true;
@@ -102,6 +122,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnGoToLogin);
             this.Controls.Add(this.btnRegister);
@@ -111,6 +132,7 @@
             this.Controls.Add(this.txbNewPassword);
             this.Controls.Add(this.txbNewUsername);
             this.Name = "RegisterForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RegisterForm";
             this.Load += new System.EventHandler(this.RegisterForm_Load);
             this.ResumeLayout(false);

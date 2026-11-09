@@ -47,7 +47,7 @@ namespace Quizmester
                     return false;
                 }
 
-                string insertQuery = "INSERT INTO Users (Username, Password) VALUES (@username, @password)";
+                string insertQuery = "INSERT INTO Users (Username, Password, Role) VALUES (@username, @password, 'user')";
                 SqlCommand insertCmd = new SqlCommand(insertQuery, conn);
                 insertCmd.Parameters.AddWithValue("@username", username);
                 insertCmd.Parameters.AddWithValue("@password", password);
@@ -76,6 +76,7 @@ namespace Quizmester
             bool success = RegisterUser(username, Password);
             if (success == true)
             {
+                Program.CurrentUser = username;
                 IsUserRegistered =true;
                 GotoQuiz();
             }
