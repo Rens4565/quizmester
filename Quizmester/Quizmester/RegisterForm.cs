@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 
 namespace Quizmester
 {
+    // Displays the registration screen and creates new user accounts.
     public partial class RegisterForm : Form
     {
 
@@ -21,6 +22,7 @@ namespace Quizmester
         bool IsUserRegistered = false;
         public RegisterForm()
         {
+            
             InitializeComponent();
         }
 
@@ -32,11 +34,13 @@ namespace Quizmester
 
         public bool RegisterUser(string username, string password)
         {
+            // Open a database connection so the username can be checked and inserted.
             string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=Quizmester;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
+                // Prevent two accounts from using the same username.
                 string checkQuery = "SELECT COUNT(*) FROM Users WHERE Username = @username";
                 SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
                 checkCmd.Parameters.AddWithValue("@username", username);
@@ -47,6 +51,7 @@ namespace Quizmester
                     return false;
                 }
 
+                // New registrations always start with the regular user role.
                 string insertQuery = "INSERT INTO Users (Username, Password, Role) VALUES (@username, @password, 'user')";
                 SqlCommand insertCmd = new SqlCommand(insertQuery, conn);
                 insertCmd.Parameters.AddWithValue("@username", username);
@@ -60,6 +65,7 @@ namespace Quizmester
        
         private void GotoQuiz()
         {
+            // Open the quiz form after a successful registration.
             quizForm quizForm = new quizForm();
             if (IsUserRegistered == true)
             {
@@ -71,11 +77,13 @@ namespace Quizmester
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
+            // Read the values entered in the registration controls.
             username = txbNewUsername.Text;
             Password = txbNewPassword.Text;
             bool success = RegisterUser(username, Password);
             if (success == true)
             {
+                // Store the logged-in username for the other forms to use.
                 Program.CurrentUser = username;
                 IsUserRegistered =true;
                 GotoQuiz();
@@ -84,6 +92,7 @@ namespace Quizmester
 
         private void btnGoToLogin_Click(object sender, EventArgs e)
         {
+            // Users who already have an account can switch to the login form.
             LoginForm Form1 = new LoginForm();
 
            

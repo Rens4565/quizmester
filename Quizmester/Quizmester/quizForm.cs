@@ -13,33 +13,40 @@ using System.Data.SqlClient;
 
 namespace Quizmester
 {
+    // Main game form containing category quizzes, speed quiz mode, timers, and scoring.
     public partial class quizForm : Form
     {
         public quizForm()
         {
+            // Creates the controls defined in quizForm.Designer.cs.
             InitializeComponent();
         }
-        RegisterForm RegisterForm = new RegisterForm();
 
+        
+
+        // The current set of questions and the position of the question being shown.
         private List<Question> quizQuestions;
         private int currentQuestionIndex = 0;
+        // Score and one-use helpers for a normal category quiz.
         public int score = 0;
         private bool skipUsed = false;
         private bool fiftyfiftyUsed = false;
         private int specialQuestionIndex = -1;
 
+        // Time limits for one question and for the entire normal quiz.
         private int questinTimeLimit = 6;
         private int quizTimeLimit = 60;
         private int questionTimeLeft;
         private int quizTimeLeft;
         private string currentCategory = "";
 
+        // State and counters used by the speed quiz mode.
         private bool isSpeedQuiz = false;
         private int speedSeconds = 0;
         private int speedCorrect = 0;
         private int speedGoal = 10;   // how many correct answers you need
 
-        // new line: isSpeedQuiz = false;
+        // Loads and starts a normal quiz for the selected category.
         private void LoadQuiz(string category)
         {
             isSpeedQuiz = false;
@@ -49,7 +56,7 @@ namespace Quizmester
             quizQuestions = ShuffleQuestions(quizQuestions);
             currentCategory = category;
 
-            // pick the special question: a random number from the first 20 questions
+            // Pick one special question from the first 20 questions.
             // (Math.Min makes sure it also works when there are less than 20 questions)
             Random rnd = new Random();
             specialQuestionIndex = rnd.Next(Math.Min(20, quizQuestions.Count));
@@ -67,10 +74,10 @@ namespace Quizmester
             ShowQuestions();
         }
 
-        // new: the speed quiz block at the top and the if/else around the question time label
+        // Displays the current question and prepares its answer buttons.
         private void ShowQuestions()
         {
-            // speed quiz: when all questions are used, shuffle and start again
+            // Speed quiz mode reuses the question list when all questions have been shown.
             if (isSpeedQuiz == true && currentQuestionIndex >= quizQuestions.Count)
             {
                 quizQuestions = ShuffleQuestions(quizQuestions);
@@ -86,7 +93,7 @@ namespace Quizmester
             Question currentQuestion = quizQuestions[currentQuestionIndex];
             lblQuestion.Text = currentQuestion.Text;
 
-            // special question: other color, extra text and a sound
+            // A special question receives a different color, text, and sound.
             if (currentQuestionIndex == specialQuestionIndex)
             {
                 this.BackColor = Color.Gold;
@@ -105,13 +112,13 @@ namespace Quizmester
             btnAnswer3.Text = shuffledAnswers[2];
             btnAnswer4.Text = shuffledAnswers[3];
 
-            // after a 50/50 the next question needs all buttons back
+            // Re-enable all answer buttons after a previous 50/50 action.
             btnAnswer1.Enabled = true;
             btnAnswer2.Enabled = true;
             btnAnswer3.Enabled = true;
             btnAnswer4.Enabled = true;
 
-            // the speed quiz has no time limit per question
+            // Speed quiz uses one overall counter instead of a per-question limit.
             if (isSpeedQuiz == true)
             {
                 lblQuestionTime.Text = "No time limit per question";
@@ -129,13 +136,13 @@ namespace Quizmester
 
         private void PlaySpecialSound()
         {
-            // the sound file is in the same folder as the .exe
+            // The sound file is expected to be next to the executable.
             string soundPath = System.IO.Path.Combine(Application.StartupPath, "special.wav");
 
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(soundPath);
             player.Play();   // plays in the background, so the quiz keeps running
         }
-        // new: the speed quiz block at the top (the timer counts UP and nothing else happens)
+        // Updates either the speed counter or the normal quiz timers once per second.
         private void timerQuestion_Tick(object sender, EventArgs e)
         {
             if (isSpeedQuiz == true)
@@ -145,7 +152,7 @@ namespace Quizmester
                 return;
             }
 
-            // --- overall quiz clock ---
+            // ---------- overall quiz clock ----------
             quizTimeLeft--;
             lblQuizTime.Text = "Total time: " + quizTimeLeft;
 
@@ -161,7 +168,7 @@ namespace Quizmester
                 return;              // stop here, don't also touch the question clock below
             }
 
-            // --- per-question clock ---
+            // ---------- per-question clock ----------
             questionTimeLeft--;
             lblQuestionTime.Text = "Time left: " + questionTimeLeft;
 
@@ -177,13 +184,11 @@ namespace Quizmester
 
 
 
-        private void btnTestForm_Click(object sender, EventArgs e)
-        {
-            RegisterForm.Show();
-        }
+        
 
         private void quizForm_Load(object sender, EventArgs e)
         {
+            // Only administrators should see the administration button.
             btnAdmin.Visible = Program.IsAdmin;
         }
 
@@ -194,6 +199,7 @@ namespace Quizmester
 
         private List<string> ShuffleAnswers(Question q)
         {
+            // Put the correct answer and the three wrong answers into one list.
             List<string> answers = new List<string>();
             answers.Add(q.CorrectAnswer);
             answers.Add(q.WrongAnswer1);
@@ -202,6 +208,7 @@ namespace Quizmester
 
             Random rnd = new Random();
 
+            // Swap random items to create a different answer order.
             for (int i = 0; i < answers.Count; i++)
             {
                 int randomIndex = rnd.Next(answers.Count);
@@ -216,6 +223,7 @@ namespace Quizmester
 
         private List<Question> ShuffleQuestions(List<Question> questionsToShuffle)
         {
+            // Randomly reorder the questions so each quiz has a different sequence.
             Random rnd = new Random();
 
             for (int i = 0; i < questionsToShuffle.Count; i++)
@@ -249,7 +257,7 @@ namespace Quizmester
             CheckAnswer(btnAnswer4.Text);
         }
 
-        // new: the speed quiz block at the top
+        // Checks a selected answer and routes it to the correct quiz mode.
         private void CheckAnswer(string chosenAnswer)
         {
             if (isSpeedQuiz == true)
@@ -262,6 +270,7 @@ namespace Quizmester
 
             if (chosenAnswer == currentQuestion.CorrectAnswer)
             {
+                // Special questions are worth three points instead of one.
                 if (currentQuestionIndex == specialQuestionIndex)
                 {
                     score = score + 3;   // special question: 3 points (change the 3 if you want)
@@ -284,6 +293,7 @@ namespace Quizmester
 
         private void SkipQuestion()
         {
+            // Move to the next question and mark the one-time skip as used.
             currentQuestionIndex++;
             skipUsed = true;
 
@@ -293,6 +303,7 @@ namespace Quizmester
 
         private void btnSkipQuestion_Click(object sender, EventArgs e)
         {
+            // The skip button can only be used once in a normal quiz.
             if (skipUsed == false)
             {
                 SkipQuestion();
@@ -301,6 +312,7 @@ namespace Quizmester
         }
         private void EndQuiz()
         {
+            // Stop the timer before saving the final normal-quiz score.
             QuizTimer.Stop();
             this.BackColor = SystemColors.Control;
 
@@ -312,7 +324,7 @@ namespace Quizmester
             {
                 conn.Open();
 
-                // 1. Score opslaan
+                // Save the final score and category.
                 string saveQuery = "INSERT INTO Scores (Username, Score, Category) VALUES (@username, @score, @category)";
                 SqlCommand saveCmd = new SqlCommand(saveQuery, conn);
                 saveCmd.Parameters.AddWithValue("@username", Program.CurrentUser);
@@ -320,14 +332,14 @@ namespace Quizmester
                 saveCmd.Parameters.AddWithValue("@category", currentCategory);
                 saveCmd.ExecuteNonQuery();
 
-                // 2. Plek uitrekenen: hoeveel scores zijn hoger dan de mijne? Plus 1.
+                // Calculate the player's ranking by counting higher scores.
                 string placeQuery = "SELECT COUNT(*) FROM Scores WHERE Score > @score";
                 SqlCommand placeCmd = new SqlCommand(placeQuery, conn);
                 placeCmd.Parameters.AddWithValue("@score", finalScore);
                 place = (int)placeCmd.ExecuteScalar() + 1;
             }
 
-            // 3. Eindscore tonen
+            // Show the final score and whether the player reached the top ten.
             string message = "Quiz afgelopen! Je score: " + finalScore;
             if (place <= 10 && finalScore > 0)
             {
@@ -339,7 +351,7 @@ namespace Quizmester
             }
             MessageBox.Show(message);
 
-            // 4. Resetten (zoals je al had)
+            // Reset the controls so another quiz can be started.
             score = 0;
             currentQuestionIndex = 0;
             skipUsed = false;
@@ -371,19 +383,22 @@ namespace Quizmester
 
         private void btnShowLeaderboard_Click(object sender, EventArgs e)
         {
+            // Open the leaderboard without closing the quiz form.
             Leaderboard form = new Leaderboard();
             form.Show();
         }
 
         private void btnAdmin_Click(object sender, EventArgs e)
         {
+            // Open the administration screen for an administrator.
             AdminForm form = new AdminForm();
             form.Show();
-            this.Close();
+            
         }
 
         private void btn5050_Click(object sender, EventArgs e)
         {
+            // The 50/50 helper is available only while a quiz is active and only once.
             if (QuizTimer.Enabled == false || fiftyfiftyUsed == true)
             {
                 return;
@@ -396,7 +411,7 @@ namespace Quizmester
             Random rnd = new Random();
             int disabledCount = 0;
 
-            // disable 2 random WRONG answers
+            // Disable two randomly selected wrong answers.
             while (disabledCount < 2)
             {
                 int i = rnd.Next(4);
@@ -412,15 +427,18 @@ namespace Quizmester
 
         private void btnSpeedQuiz_Click(object sender, EventArgs e)
         {
+            // Start the special speed quiz mode.
             LoadSpeedQuiz();
         }
 
         private void LoadSpeedQuiz()
         {
+            // Speed quiz uses all questions, counts time upward, and tracks correct answers.
             isSpeedQuiz = true;
 
             GetQuestionsDB repo = new GetQuestionsDB();
-            quizQuestions = repo.GetQuestions("General");   // "General" gives all questions
+            // "General" returns all questions in the current database implementation.
+            quizQuestions = repo.GetQuestions("General");
             quizQuestions = ShuffleQuestions(quizQuestions);
 
             currentQuestionIndex = 0;
@@ -438,6 +456,7 @@ namespace Quizmester
 
         private void CheckSpeedAnswer(string chosenAnswer)
         {
+            // Correct answers increase progress; wrong answers add five seconds.
             Question currentQuestion = quizQuestions[currentQuestionIndex];
 
             if (chosenAnswer == currentQuestion.CorrectAnswer)
@@ -463,6 +482,7 @@ namespace Quizmester
 
         private void EndSpeedQuiz()
         {
+            // Stop the timer and save the completed speed-quiz time.
             QuizTimer.Stop();
             isSpeedQuiz = false;
 
@@ -476,7 +496,7 @@ namespace Quizmester
             {
                 conn.Open();
 
-                // 1. get the fastest time so far (before saving mine)
+                // Find the previous fastest result before saving the new result.
                 string bestQuery = "SELECT TOP 1 Username, TimeSeconds FROM SpeedScores ORDER BY TimeSeconds ASC";
                 SqlCommand bestCmd = new SqlCommand(bestQuery, conn);
                 using (SqlDataReader reader = bestCmd.ExecuteReader())
@@ -489,7 +509,7 @@ namespace Quizmester
                     }
                 }
 
-                // 2. save my time
+                // Save the current user's completion time.
                 string saveQuery = "INSERT INTO SpeedScores (Username, TimeSeconds) VALUES (@username, @time)";
                 SqlCommand saveCmd = new SqlCommand(saveQuery, conn);
                 saveCmd.Parameters.AddWithValue("@username", Program.CurrentUser);
@@ -497,7 +517,7 @@ namespace Quizmester
                 saveCmd.ExecuteNonQuery();
             }
 
-            // 3. show the result
+            // Tell the player their time and whether they set a new record.
             string message = "You answered " + speedGoal + " questions correctly!\nYour time: " + myTime + " seconds";
 
             if (recordExists == false || myTime < bestTime)
@@ -510,7 +530,7 @@ namespace Quizmester
             }
             MessageBox.Show(message);
 
-            // 4. reset the screen
+            // Reset the screen for the next quiz.
             score = 0;
             currentQuestionIndex = 0;
             skipUsed = false;

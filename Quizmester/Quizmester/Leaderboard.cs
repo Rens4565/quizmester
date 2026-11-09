@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace Quizmester
 {
+    // Displays the highest scores saved in the Scores database table.
     public partial class Leaderboard : Form
     {
         // Add this declaration if it does not exist in the designer file
@@ -18,9 +19,10 @@ namespace Quizmester
 
         public Leaderboard()
         {
+            // Creates the form controls defined in Leaderboard.Designer.cs.
             InitializeComponent();
 
-            // Initialize dgvScores if not already done by designer
+            // The score grid is created here because it is not defined by the Designer.
             if (dgvScores == null)
             {
                 dgvScores = new DataGridView
@@ -34,6 +36,7 @@ namespace Quizmester
 
         private void Leaderboard_Load(object sender, EventArgs e)
         {
+            // Select the ten highest scores and sort them from highest to lowest.
             string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=Quizmester;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
             string query = "SELECT TOP 10 Username, Score FROM Scores ORDER BY Score DESC";
 
@@ -41,6 +44,7 @@ namespace Quizmester
             DataTable table = new DataTable();
             adapter.Fill(table);
 
+            // Bind the database results to the grid shown on the form.
             dgvScores.DataSource = table;
         }
     }

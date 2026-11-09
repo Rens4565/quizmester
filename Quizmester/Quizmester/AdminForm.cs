@@ -5,12 +5,14 @@ using System.Windows.Forms;
 
 namespace Quizmester
 {
+    // Allows administrators to manage users and quiz questions.
     public partial class AdminForm : Form
     {
         string connectionString = "Data Source=localhost\\sqlexpress;Initial Catalog=Quizmester;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
 
         public AdminForm()
         {
+            // Creates the controls and loads the current database contents.
             InitializeComponent();
 
             LoadUsers();
@@ -19,6 +21,7 @@ namespace Quizmester
 
         // ---------- show the data ----------
 
+        // Loads usernames and roles into the users grid.
         private void LoadUsers()
         {
             string query = "SELECT Username, Role FROM Users ORDER BY Username";
@@ -30,6 +33,7 @@ namespace Quizmester
             dgvUsers.DataSource = table;
         }
 
+        // Loads all questions into the questions grid.
         private void LoadQuestions()
         {
             string query = "SELECT Id, question, RightAwnser, WrongAwnser1, WrongAwnser2, WrongAwnser3, category FROM Questions ORDER BY Id";
@@ -45,6 +49,7 @@ namespace Quizmester
 
         private void btnChangeRole_Click(object sender, EventArgs e)
         {
+            // A user row and a new role must be selected before updating the database.
             if (dgvUsers.CurrentRow == null)
             {
                 MessageBox.Show("Select a user first.");
@@ -66,6 +71,7 @@ namespace Quizmester
                 return;
             }
 
+            // Update the selected user's role in the database.
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -83,6 +89,7 @@ namespace Quizmester
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
+            // A selected row is required before a user can be deleted.
             if (dgvUsers.CurrentRow == null)
             {
                 MessageBox.Show("Select a user first.");
@@ -105,6 +112,7 @@ namespace Quizmester
                 return;
             }
 
+            // Delete the user's scores first, then delete the user account.
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -124,6 +132,7 @@ namespace Quizmester
 
         private void btnAddQuestion_Click(object sender, EventArgs e)
         {
+            // Every question field is required before a new row can be inserted.
             if (txbQuestion.Text.Trim() == "" ||
                 txbCorrect.Text.Trim() == "" ||
                 txbWrong1.Text.Trim() == "" ||
@@ -135,6 +144,7 @@ namespace Quizmester
                 return;
             }
 
+            // Insert the new question and all of its possible answers.
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -157,7 +167,7 @@ namespace Quizmester
                 cmd.ExecuteNonQuery();
             }
 
-            // empty the fields for the next question
+            // Clear the input controls so another question can be entered.
             txbQuestion.Text = "";
             txbCorrect.Text = "";
             txbWrong1.Text = "";
@@ -171,6 +181,7 @@ namespace Quizmester
 
         private void btnDeleteQuestion_Click(object sender, EventArgs e)
         {
+            // A selected question row is required before deletion.
             if (dgvQuestions.CurrentRow == null)
             {
                 MessageBox.Show("Select a question first.");
@@ -187,6 +198,7 @@ namespace Quizmester
                 return;
             }
 
+            // Delete the selected question by its database identifier.
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -199,5 +211,7 @@ namespace Quizmester
 
             LoadQuestions();
         }
+
+       
     }
 }
